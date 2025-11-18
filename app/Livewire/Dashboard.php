@@ -15,13 +15,6 @@ class Dashboard extends Component
 
     public int $jumlah_basis_pengetahuan;
 
-    public function mount()
-    {
-        $this->jumlah_penyakit = Penyakit::count();
-        $this->jumlah_gejala = Gejala::count();
-        $this->jumlah_basis_pengetahuan = BasisPengetahuan::count();
-    }
-
     public function render()
     {
         return view('livewire.dashboard');

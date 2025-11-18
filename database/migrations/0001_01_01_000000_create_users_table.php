@@ -15,13 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(bcrypt('password123'));
-            $table->date('tanggal_lahir');
-            $table->string('pendidikan');
-            $table->string('jabatan');
-            $table->string('tempat_lahir')->nullable();
-            $table->string('photo')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('role', ['bendahara_kelas', 'bendahara_osis', 'pembina_osis']);
             $table->rememberToken();
             $table->timestamps();
         });

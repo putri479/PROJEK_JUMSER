@@ -11,11 +11,6 @@ class Landing extends Component
 {
     public $penyakitList;
 
-    public function mount()
-    {
-        $this->penyakitList = Penyakit::all();
-    }
-
     public function render()
     {
         return view('livewire.landing');
