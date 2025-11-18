@@ -7,6 +7,7 @@ Route::get('/', \App\Livewire\Index::class)->name('index')->middleware('auth');
 Route::get('/profile', \App\Livewire\Profile::class)->name('profile')->middleware('auth');
 Route::get('/users', \App\Livewire\Table\UserTable::class)->name('user-table')->middleware('auth');
 Route::get('/kelas', \App\Livewire\Table\KelasTable::class)->name('kelas-table')->middleware('auth');
+Route::get('/siswa', \App\Livewire\Table\SiswaTable::class)->name('siswa-table')->middleware('auth');
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->middleware('auth');
 Route::get('/login', \App\Livewire\Login::class)->name('login');
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');

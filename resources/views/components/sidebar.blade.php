@@ -20,6 +20,14 @@
                     Dashboard
                 </x-nav-link>
 
+                <x-nav-link icon="bi-house" :href="route('kelas-table')" :active="request()->routeIs('kelas-table')">
+                    Kelas
+                </x-nav-link>
+
+                <x-nav-link icon="bi-house" :href="route('siswa-table')" :active="request()->routeIs('siswa-table')">
+                    Siswa
+                </x-nav-link>
+
 
 
                 <div class="border-bottom"></div>
