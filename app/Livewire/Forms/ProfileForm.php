@@ -22,16 +22,6 @@ class ProfileForm extends Form
 
     public string $password = '';
 
-    public $photo;
-
-    public $tanggal_lahir;
-
-    public $pendidikan;
-
-    public $jabatan;
-
-    public ?string $tempat_lahir = null;
-
 
     public function rules(): array
     {
@@ -45,12 +35,6 @@ class ProfileForm extends Form
                 Rule::unique('users', 'email')->ignore($this->user),
             ],
             'password' => ['nullable'], // optional, minimal 8 karakter
-            'photo' => ['nullable', 'image', 'max:2048'], // Max 2MB
-            'tanggal_lahir' => ['nullable', 'date', 'before:today'], // tidak boleh tanggal masa depan
-            'pendidikan' => ['nullable', 'string', 'max:50'],
-            'jabatan' => ['nullable', 'string', 'max:50'],
-
-            'tempat_lahir' => 'nullable|string|max:255',
         ];
     }
 
@@ -66,15 +50,6 @@ class ProfileForm extends Form
             'email.unique' => 'Email sudah terdaftar, silakan gunakan email lain.',
 
             'password.min' => 'Password minimal 8 karakter.',
-
-            // 'photo.image' => 'File yang diunggah harus berupa gambar.',
-            // 'photo.max' => 'Ukuran foto maksimal 2MB.',
-
-            'tanggal_lahir.date' => 'Tanggal lahir harus berupa tanggal yang valid.',
-            'tanggal_lahir.before' => 'Tanggal lahir tidak boleh di masa depan.',
-
-            'pendidikan.max' => 'Pendidikan maksimal 50 karakter.',
-            'jabatan.max' => 'Jabatan maksimal 50 karakter.',
         ];
     }
 
@@ -92,9 +67,6 @@ class ProfileForm extends Form
         if ($this->name !== $this->user->name) {
             $updates['name'] = $this->name;
         }
-        if ($this->tempat_lahir !== $this->user->tempat_lahir) {
-            $updates['tempat_lahir'] = $this->tempat_lahir;
-        }
         if ($this->email !== $this->user->email) {
             $updates['email'] = $this->email;
         }
@@ -102,26 +74,15 @@ class ProfileForm extends Form
             $updates['password'] = Hash::make($this->password);
         }
 
-        // Tambahkan field tambahan
-        if ($this->tanggal_lahir !== $this->user->tanggal_lahir) {
-            $updates['tanggal_lahir'] = $this->tanggal_lahir;
-        }
-        if ($this->pendidikan !== $this->user->pendidikan) {
-            $updates['pendidikan'] = $this->pendidikan;
-        }
-        if ($this->jabatan !== $this->user->jabatan) {
-            $updates['jabatan'] = $this->jabatan;
-        }
-
-        if ($this->photo) {
-            // Delete old photo if exists
-            if ($this->user->photo) {
-                Storage::disk('public')->delete($this->user->photo);
-            }
-            // Store new photo
-            $path = $this->photo->store('photos', 'public');
-            $updates['photo'] = $path;
-        }
+        // if ($this->photo) {
+        //     // Delete old photo if exists
+        //     if ($this->user->photo) {
+        //         Storage::disk('public')->delete($this->user->photo);
+        //     }
+        //     // Store new photo
+        //     $path = $this->photo->store('photos', 'public');
+        //     $updates['photo'] = $path;
+        // }
 
         // Perform update only if there are changes
         if (! empty($updates)) {

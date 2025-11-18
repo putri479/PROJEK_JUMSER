@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->default(bcrypt('password123'));
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['bendahara_kelas', 'bendahara_osis', 'pembina_osis']);
+            $table->enum('role', Role::values());
             $table->rememberToken();
             $table->timestamps();
         });
