@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Role;
+use App\Models\KasPembayaran;
 use App\Models\User;
 use App\Models\Kelas;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,11 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Kelas::factory(10)->create();
+
 
         User::factory()->create([
             'name' => 'Pembina Osis',
             'email' => 'admin@gmail.com',
+            'role' => Role::PEMBINA_OSIS
         ]);
+
+        $this->call([
+            KelasSeeder::class,
+            KasMingguanSeeder::class,
+            KasPembayaranSeeder::class,
+        ]);
+
     }
 }

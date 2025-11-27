@@ -1,6 +1,4 @@
 <div>
-    <h1>User Table</h1>
-
 
 <!-- Modal Add Form -->
 <div class="modal fade" id="modal-add" tabindex="-1" wire:ignore.self>
@@ -171,7 +169,7 @@
 
             <div class="row">
                 <div class="col-6">
-                    <button class="btn btn-sm btn-primary" wire:click="add">Tambah User</button>
+                    <button class="btn  btn-primary" wire:click="add">Tambah User</button>
                 </div>
                 <div class="col-6">
 
@@ -194,7 +192,7 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Role</th>
-      <th class="float-end">Aksi</th>
+      <th class="text-end">Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -204,14 +202,14 @@
       <td>{{ $item->name }}</td>
       <td>{{ $item->email }}</td>
       <td>{{ $item->role }}</td>
-  <td class="float-end">
-      <button type="button" class="btn btn-sm btn-info" wire:click="detail({{ $item->id }})">
+  <td class="text-end">
+      <button type="button" class="btn  btn-secondary" wire:click="detail({{ $item->id }})">
         <i class="bi bi-eye"></i> Detail
       </button>
-      <button type="button" class="btn btn-sm btn-warning" wire:click="edit({{ $item->id }})">
+      <button type="button" class="btn  btn-warning" wire:click="edit({{ $item->id }})">
         <i class="bi bi-pencil"></i> Edit
       </button>
-      <button type="button" class="btn btn-sm btn-danger" wire:click="delete({{ $item->id }})">
+      <button type="button" class="btn  btn-danger" wire:click="delete({{ $item->id }})">
         <i class="bi bi-trash"></i> Hapus
       </button>
   </td>

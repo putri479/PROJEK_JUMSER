@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Table;
 
+use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Livewire\Forms\SiswaForm;
 use Livewire\Attributes\Computed;
@@ -10,7 +11,9 @@ use Livewire\WithPagination;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 
+#[Title('Kelas')]
 class SiswaTable extends Component
 {
 
@@ -22,14 +25,27 @@ class SiswaTable extends Component
 
     public SiswaForm $form;
 
+    public $selectedKelasId = null;
+
+    public function pilihKelas($kelasId = null) {
+        $this->selectedKelasId = $kelasId;
+        $this->resetPage();
+    }
+
     #[Computed]
     public function siswaList()
     {
     return Siswa::query()
         ->when($this->search, function($query) {
-           $query->whereAny([''], 'like', '%' . $this->search . '%');
+           $query->whereAny(['nama_siswa', 'kelas_id'], 'like', '%' . $this->search . '%');
         })
+        ->where('kelas_id', $this->selectedKelasId)
         ->paginate(10);
+    }
+
+    #[Computed]
+    public function kelasList() {
+        return Kelas::query()->withCount('siswa')->get();
     }
 
     public function add()
@@ -41,6 +57,7 @@ class SiswaTable extends Component
     public function save()
     {
 
+        $this->form->kelas_id = $this->selectedKelasId;
         $this->form->store();
         $this->notifySuccess('Siswa berhasil ditambahkan!');
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
@@ -12,7 +13,7 @@ class UserForm extends Form
 
     public string $name = '';
     public string $email = '';
-    public string $role = '';
+    public ?Role  $role = null;
 
     protected function rules(): array
     {

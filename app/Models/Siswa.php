@@ -9,4 +9,17 @@ class Siswa extends Model
 {
     /** @use HasFactory<\Database\Factories\SiswaFactory> */
     use HasFactory;
+
+    protected $table = 'siswa';
+    protected $guarded = [];
+
+    public function kelas() {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function kasPembayaran()
+    {
+        return $this->hasMany(KasPembayaran::class, 'siswa_id');
+    }
+
 }

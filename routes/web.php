@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Table\DetailKasMingguan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/landing', \App\Livewire\Landing::class)->name('landing');
@@ -9,5 +10,14 @@ Route::get('/users', \App\Livewire\Table\UserTable::class)->name('user-table')->
 Route::get('/kelas', \App\Livewire\Table\KelasTable::class)->name('kelas-table')->middleware('auth');
 Route::get('/siswa', \App\Livewire\Table\SiswaTable::class)->name('siswa-table')->middleware('auth');
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->middleware('auth');
+
 Route::get('/login', \App\Livewire\Login::class)->name('login');
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');
+
+Route::prefix('kas')->group(function () {
+
+    // Halaman detail pembayaran per minggu
+    Route::get('mingguan/{mingguanId}', DetailKasMingguan::class)
+        ->name('kas.mingguan.detail');
+
+});

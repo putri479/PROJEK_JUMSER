@@ -1,119 +1,127 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Page Title' }}</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css')}}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}" />
 
-<!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Tambah untuk ikon -->
+    <link rel="icon" href="{{ asset('img/logo-tanipedia.ico') }}" type="image/x-icon">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
+
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/table-datatable-jquery.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/app-dark.css') }}">
+    <link rel="stylesheet" crossorigin href="{{ asset('/assets/compiled/css/iconly.css') }}">
+
+    <link rel="stylesheet" crossorigin="" href="{{ asset('/assets/compiled/css/ui-widgets-chatbox.css') }}">
 
     <!-- Toastfy -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_navbar.html -->
-      <x-navbar />
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+
+    <!-- Quill Js -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" /> -->
+
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+
+    <style>
+        .swal2-popup {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .swal2-title {
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        #editor {
+            height: 500px;
+        }
+
+        .logo-tanipedia {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+    </style>
+
+    @stack('styles')
+</head>
+
+<body>
+    <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
+    <div id="app">
         <x-sidebar />
-        <!-- partial -->
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> {{ $title ?? 'Dashboard'}}
-              </h3>
-              <nav aria-label="breadcrumb">
-                <ul class="breadcrumb">
-                  <li class="breadcrumb-item active" aria-current="page">
-                    <!-- <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i> -->
-                  </li>
-                </ul>
-              </nav>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <h3>{{ $title ?? '' }}</h3>
             </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12">
                         {{ $slot }}
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="container-fluid d-flex justify-content-between">
-              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
-              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+                    </div>
+                </section>
             </div>
-          </footer>
-          <!-- partial -->
+
+            <!--             <footer> -->
+            <!--     <div class="footer clearfix mb-0 text-muted"> -->
+            <!--         <div class="float-start"> -->
+            <!--             <p>2023 &copy; Mazer</p> -->
+            <!--         </div> -->
+            <!--         <div class="float-end"> -->
+            <!--             <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span> -->
+            <!--                 by <a href="https://saugi.me">Saugi</a></p> -->
+            <!--         </div> -->
+            <!--     </div> -->
+            <!-- </footer> -->
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js')}}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{{ asset('assets/vendors/chart.js/Chart.min.js')}}"></script>
-    <script src="{{ asset('assets/js/jquery.cookie.js')}}" type="text/javascript"></script>
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{ asset('assets/js/off-canvas.js')}}"></script>
-    <script src="{{ asset('assets/js/hoverable-collapse.js')}}"></script>
-    <script src="{{ asset('assets/js/misc.js')}}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <script src="{{ asset('assets/js/dashboard.js')}}"></script>
-    <script src="{{ asset('assets/js/todolist.js')}}"></script>
-    <!-- End custom js for this page -->
+    <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
+    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
-<!-- Toastfy -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
 
-        <script>
+    <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/static/js/pages/datatables.js') }}"></script>
 
-        document.addEventListener('livewire:initialized', () => {
+    <!-- Toastfy -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-  Livewire.on('openModal', ({ id }) => {
-        const modalElement = document.getElementById(id);
-        if (modalElement) {
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        }
-    });
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    Livewire.on('closeModal', ({ id }) => {
-        const modalElement = document.getElementById(id);
-        if (modalElement) {
-            const modalInstance = bootstrap.Modal.getInstance(modalElement);
-            if (modalInstance) {
-                modalInstance.hide();
-            }
-        }
-    });
 
-            Livewire.on('deleteConfirmation', ({ message }) => {
+    <script>
+        $(window).on('livewire:initialized', () => {
+
+            Livewire.on('openModal', ({
+                id
+            }) => {
+                $('#' + id).modal('show');
+            });
+
+            Livewire.on('closeModal', ({
+                id
+            }) => {
+                $('#' + id).modal('hide');
+            });
+
+            Livewire.on('deleteConfirmation', ({
+                message
+            }) => {
                 Swal.fire({
                     title: message,
                     icon: "warning",
@@ -125,53 +133,105 @@
                     confirmButtonText: "Ya, Hapus",
                     showClass: {
                         popup: `
-animate__animated
-animate__fadeIn
-animate__faster`
+                            animate__animated
+                            animate__fadeIn
+                            animate__faster`
                     },
                     hideClass: {
                         popup: `
-animate__animated
-animate__fadeOut
-animate__faster`
+                            animate__animated
+                            animate__fadeOut
+                            animate__faster`
                     }
                 }).then((result) => {
-                        if (result.isConfirmed) {
-                            Livewire.dispatch('deleteConfirmed');
-                        }
-                    });
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('deleteConfirmed');
+                    }
+                });
             });
 
-            Livewire.on('toast', ({ message, variant }) => {
+            Livewire.on('toast', ({
+                message,
+                variant,
+                reload
+            }) => {
+
+                if (reload) {
+                    sessionStorage.setItem('reload', 'true');
+                    sessionStorage.setItem('variant', variant);
+                    sessionStorage.setItem('message', message);
+                }
+
                 const borderColors = {
-                    success: "#198754",
+                    success: "#435ebe",
                     warning: "#ffc107",
-                    error: "#dc3545",
-primary:   "#be83f4",
-secondary: "#6c757d",
-info:      "#0dcaf0",
-light:     "#f8f9fa",
-dark:      "#212529",
+                    error: "#dc3545"
                 };
 
                 Toastify({
                     text: message,
                     duration: 3000,
                     close: false,
-                    gravity: "bottom",
+                    gravity: "top",
                     position: "right",
                     stopOnFocus: true,
                     style: {
                         background: "#ffffff",
                         border: `2px solid ${borderColors[variant] || "#374151"}`,
                         color: "#111827",
-                        borderRadius: "10px"
+                        borderRadius: "15px"
                     },
                 }).showToast();
             });
 
         });
 
-        </script>
-  </body>
+        // setelah halaman dimuat ulang, periksa apakah ada notifikasi yang harus ditampilkan
+        $(window).on('load', function() {
+            if (sessionStorage.getItem('reload') === 'true') {
+                message = sessionStorage.getItem('message');
+                variant = sessionStorage.getItem('variant');
+                // Tampilkan toast
+                const borderColors = {
+                    success: "#435ebe",
+                    warning: "#ffc107",
+                    error: "#dc3545"
+                };
+
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    close: false,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#ffffff",
+                        border: `2px solid ${borderColors[variant] || "#374151"}`,
+                        color: "#111827",
+                        borderRadius: "15px"
+                    },
+                }).showToast();
+
+                // Hapus item setelah toast ditampilkan
+                sessionStorage.removeItem('reload');
+                sessionStorage.removeItem('message');
+                sessionStorage.removeItem('variant');
+            }
+        });
+    </script>
+
+    <!-- Include the Quill library -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script> -->
+
+
+    @stack('scripts')
+
+
+
+    <!-- <script src="assets/extensions/apexcharts/apexcharts.min.js"></script> -->
+    <!-- <script src="assets/static/js/pages/dashboard.js"></script> -->
+
+</body>
+
 </html>

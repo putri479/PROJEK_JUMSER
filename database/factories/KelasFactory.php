@@ -20,8 +20,19 @@ class KelasFactory extends Factory
             'X TKJ 1', 'XI TKJ 1', 'XII TKJ 1'
         ];
 
+        $namaKelas = $this->faker->randomElement($kelasList);
+
+        // Format nama dan email bendahara
+        $formatted = str_replace(' ', '_', strtolower($namaKelas)); // x_rpl_1
+
+        $bendahara = User::factory()->create([
+            'name' => 'bendahara_' . $formatted,
+            'email' => 'bendahara_' . $formatted . '@example.com',
+        ]);
+
         return [
-            'nama_kelas' => $this->faker->randomElement($kelasList),
+            'nama_kelas' => $namaKelas,
+            'bendahara_id' => $bendahara->id,
         ];
     }
 }

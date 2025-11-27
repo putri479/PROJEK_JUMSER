@@ -2,15 +2,19 @@
 
 namespace App\Livewire\Table;
 
+use App\Enums\Role;
 use App\Models\Kelas;
 use App\Livewire\Forms\KelasForm;
+use App\Models\User;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 
+#[Title('Kelas')]
 class KelasTable extends Component
 {
 
@@ -30,6 +34,11 @@ class KelasTable extends Component
            $query->whereAny(['nama_kelas'], 'like', '%' . $this->search . '%');
         })
         ->paginate(10);
+    }
+
+    #[Computed]
+    public function bendaharaList() {
+        return User::query()->where('role', Role::BENDAHARA_KELAS)->get();
     }
 
     public function add()

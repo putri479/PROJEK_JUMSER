@@ -12,10 +12,18 @@ class KelasForm extends Form
 
     public string $nama_kelas = '';
 
+    public ?int $bendahara_id = null;
+
+
     protected function rules(): array
     {
         return [
             'nama_kelas' => 'required',
+'bendahara_id' => [
+    'required',
+    'exists:users,id',
+    Rule::unique('kelas', 'bendahara_id')->ignore($this->kelas?->id),
+]
         ];
     }
 
@@ -23,6 +31,8 @@ class KelasForm extends Form
     {
         return [
             'nama_kelas.required' => 'Nama Kelas wajib diisi.',
+            'bendahara_id.exists'   => 'Bendahara yang dipilih tidak ditemukan dalam data pengguna.',
+'bendahara_id.unique' => 'Pengguna ini sudah menjadi bendahara di kelas lain.',
         ];
     }
 
@@ -49,6 +59,6 @@ class KelasForm extends Form
 
         $this->kelas = Kelas::query()->find($id);
         $this->nama_kelas = $this->kelas->nama_kelas;
-
+        $this->bendahara_id = $this->kelas->bendahara_id;
     }
 }

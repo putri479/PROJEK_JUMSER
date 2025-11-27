@@ -10,7 +10,9 @@ use Livewire\WithPagination;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 
+#[Title('Pengguna')]
 class UserTable extends Component
 {
 

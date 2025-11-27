@@ -1,12 +1,12 @@
-@props(['href', 'active' => false, 'icon' => 'bi-amd'])
+@props(['href', 'active' => false, 'icon' => 'fa-home'])
 
 @php
-    $classes = $active ? 'nav-item active' : 'nav-item';
+    $classes = $active ? 'sidebar-item active' : 'sidebar-item';
 @endphp
 
 <li {{ $attributes->class([$classes]) }}>
-    <a class="nav-link" href="{{ $href }}">
-        <span class="menu-title">{{ $slot }}</span>
-        <i class="bi {{ $icon }} menu-icon"></i>
+    <a href="{{ $href }}" class="sidebar-link">
+        <i class="bi {{ $icon }}"></i>
+        <span>{{ $slot }}</span>
     </a>
 </li>

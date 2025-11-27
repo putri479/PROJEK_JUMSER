@@ -180,7 +180,7 @@ class MakeTableCommand extends Command
     private function getColumnListing(string $name): array
     {
         // Nama tabel diasumsikan bentuk jamak dari nama model
-        $table = Str::snake(Str::pluralStudly($name));
+        $table = Str::snake(Str::singular($name));
 
         // Ambil semua kolom dari tabel
         $columns = Schema::getColumnListing($table);
@@ -227,7 +227,7 @@ class MakeTableCommand extends Command
         $table = $this->generateTable($columnList, $varName);
         $form = $this->generateForm($columnList);
 
-        $fields = $this->generateFields($columnList, Str::plural($name));
+        $fields = $this->generateFields($columnList, Str::singular($name));
         $rules  = $this->generateRules($columnList);
         $messages = $this->generateMessages($columnList);
 

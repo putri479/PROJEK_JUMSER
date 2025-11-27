@@ -1,13 +1,10 @@
 <div>
-    <h1>Kela Table</h1>
-
-
     <!-- Modal Add Form -->
     <div class="modal fade" id="modal-add" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Tambah Kela</h5>
+                    <h5 class="modal-title">Tambah Kelas</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -16,6 +13,22 @@
                         <label for="nama_kelas">Nama Kelas</label>
                         <input wire:model="form.nama_kelas" type="text" class="form-control" id="nama_kelas">
                         @error('form.nama_kelas')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="bendahara_id">Bendahara</label>
+                        <select class="form-control" id="bendahara_id" wire:model="form.bendahara_id">
+
+                            <option value="">-- Pilih Bendahara --</option>
+                            @foreach ($this->bendaharaList as $bendahara)
+
+                            <option value="{{ $bendahara->id }}">{{ $bendahara->name }}</option>
+
+                            @endforeach
+
+                        </select>
+                        @error('form.bendahara_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -48,6 +61,23 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+
+                    <div class="form-group mb-3">
+                        <label for="bendahara_id">Bendahara</label>
+                        <select class="form-control" id="bendahara_id" wire:model="form.bendahara_id">
+
+                            <option value="">-- Pilih Bendahara --</option>
+                            @foreach ($this->bendaharaList as $bendahara)
+
+                            <option value="{{ $bendahara->id }}">{{ $bendahara->name }}</option>
+
+                            @endforeach
+
+                        </select>
+                        @error('form.bendahara_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     </fieldset>
                 </div>
 
@@ -69,6 +99,23 @@
                         <label for="nama_kelas">Nama Kelas</label>
                         <input wire:model="form.nama_kelas" type="text" class="form-control" id="nama_kelas">
                         @error('form.nama_kelas')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="bendahara_id">Bendahara</label>
+                        <select class="form-control" id="bendahara_id" wire:model="form.bendahara_id">
+
+                            <option value="">-- Pilih Bendahara --</option>
+                            @foreach ($this->bendaharaList as $bendahara)
+
+                            <option value="{{ $bendahara->id }}">{{ $bendahara->name }}</option>
+
+                            @endforeach
+
+                        </select>
+                        @error('form.bendahara_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -115,7 +162,7 @@
 
             <div class="row">
                 <div class="col-6">
-                    <button class="btn btn-sm btn-primary" wire:click="add">Tambah Kela</button>
+                    <button class="btn btn-primary" wire:click="add">Tambah Kelas</button>
                 </div>
                 <div class="col-6">
 
@@ -136,7 +183,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Kelas</th>
-                        <th class="float-end">Aksi</th>
+                        <th class="text-end">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,16 +191,16 @@
                         <tr>
                             <th scope="row">{{ $loop->index + $this->kelasList->firstItem() }}</th>
                             <td>{{ $item->nama_kelas }}</td>
-                            <td class="float-end">
-                                <button type="button" class="btn btn-sm btn-info"
+                            <td class="text-end">
+                                <button type="button" class="btn btn-secondary"
                                     wire:click="detail({{ $item->id }})">
                                     <i class="bi bi-eye"></i> Detail
                                 </button>
-                                <button type="button" class="btn btn-sm btn-warning"
+                                <button type="button" class="btn btn-warning"
                                     wire:click="edit({{ $item->id }})">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                <button type="button" class="btn btn-sm btn-danger"
+                                <button type="button" class="btn btn-danger"
                                     wire:click="delete({{ $item->id }})">
                                     <i class="bi bi-trash"></i> Hapus
                                 </button>
