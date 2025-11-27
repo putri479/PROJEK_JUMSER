@@ -9,11 +9,6 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public int $jumlah_penyakit;
-
-    public int $jumlah_gejala;
-
-    public int $jumlah_basis_pengetahuan;
 
     public function render()
     {
