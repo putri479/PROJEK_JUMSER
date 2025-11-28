@@ -5,6 +5,7 @@ namespace App\Livewire\Table;
 use App\Enums\Role;
 use App\Models\Kelas;
 use App\Livewire\Forms\KelasForm;
+use App\Models\Siswa;
 use App\Models\User;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -39,6 +40,25 @@ class KelasTable extends Component
     #[Computed]
     public function bendaharaList() {
         return User::query()->where('role', Role::BENDAHARA_KELAS)->get();
+    }
+
+    #[Computed]
+    public function siswaList()
+    {
+        if (! $this->form->kelas) {
+            return collect();
+        }
+
+        return Siswa::where('kelas_id', $this->form->kelas->id)
+            ->orderBy('nama_siswa')
+            ->paginate(10);
+    }
+
+    public function showSiswaList($id) {
+
+        $this->form->fill($id);
+        $this->openModal('modal-siswa-list');
+
     }
 
     public function add()

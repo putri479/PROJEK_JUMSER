@@ -20,8 +20,14 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Pembina Osis',
-            'email' => 'admin@gmail.com',
+            'email' => 'pembina_osis@gmail.com',
             'role' => Role::PEMBINA_OSIS
+        ]);
+
+        User::factory()->create([
+            'name' => 'Bendahara Osis',
+            'email' => 'bendahara_osis@gmail.com',
+            'role' => Role::BENDAHARA_OSIS
         ]);
 
         $this->call([

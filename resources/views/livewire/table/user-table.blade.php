@@ -1,3 +1,8 @@
+@php
+
+    use App\Enums\Role;
+
+@endphp
 <div>
 
 <!-- Modal Add Form -->
@@ -26,7 +31,12 @@
 </div>
 <div class="form-group mb-3">
     <label for="role">Role</label>
-    <input wire:model="form.role" type="text" class="form-control" id="role">
+    <select wire:model="form.role" class="form-control" id="role">
+        @foreach (Role::values() as $role)
+            <option value="{{ $role }}">{{ $role }}</option>
+        @endforeach
+    </select>
+
     @error('form.role')
         <small class="text-danger">{{ $message }}</small>
     @enderror
@@ -107,7 +117,11 @@
 </div>
 <div class="form-group mb-3">
     <label for="role">Role</label>
-    <input wire:model="form.role" type="text" class="form-control" id="role">
+    <select wire:model="form.role" class="form-control" id="role">
+        @foreach (Role::values() as $role)
+            <option value="{{ $role }}">{{ $role }}</option>
+        @endforeach
+    </select>
     @error('form.role')
         <small class="text-danger">{{ $message }}</small>
     @enderror
@@ -201,7 +215,7 @@
       <th scope="row">{{ $loop->index + $this->userList->firstItem() }}</th>
       <td>{{ $item->name }}</td>
       <td>{{ $item->email }}</td>
-      <td>{{ $item->role }}</td>
+      <td><span class="badge bg-{{ $item->role->getColor()}}">{{ $item->role }}</span></td>
   <td class="text-end">
       <button type="button" class="btn  btn-secondary" wire:click="detail({{ $item->id }})">
         <i class="bi bi-eye"></i> Detail

@@ -58,6 +58,7 @@ class KelasForm extends Form
     public function fill($id) {
 
         $this->kelas = Kelas::query()->find($id);
+        $this->kelas->load('siswa');
         $this->nama_kelas = $this->kelas->nama_kelas;
         $this->bendahara_id = $this->kelas->bendahara_id;
     }

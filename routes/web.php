@@ -9,6 +9,8 @@ Route::get('/profile', \App\Livewire\Profile::class)->name('profile')->middlewar
 Route::get('/users', \App\Livewire\Table\UserTable::class)->name('user-table')->middleware('auth');
 Route::get('/kelas', \App\Livewire\Table\KelasTable::class)->name('kelas-table')->middleware('auth');
 Route::get('/siswa', \App\Livewire\Table\SiswaTable::class)->name('siswa-table')->middleware('auth');
+Route::get('/pemasukan', \App\Livewire\Table\PemasukanTable::class)->name('pemasukan-table')->middleware('auth');
+Route::get('/pengeluaran', \App\Livewire\Table\PengeluaranTable::class)->name('pengeluaran-table')->middleware('auth');
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->middleware('auth');
 
 Route::get('/login', \App\Livewire\Login::class)->name('login');
@@ -17,7 +19,7 @@ Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logou
 Route::prefix('kas')->group(function () {
 
     // Halaman detail pembayaran per minggu
-    Route::get('mingguan/{mingguanId}', DetailKasMingguan::class)
+    Route::get('mingguan', DetailKasMingguan::class)
         ->name('kas.mingguan.detail');
 
 });

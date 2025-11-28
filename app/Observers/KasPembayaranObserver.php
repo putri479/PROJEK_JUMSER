@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enums\StatusPembayaran;
 use App\Models\KasPembayaran;
+use App\Models\Pemasukan;
 
 class KasPembayaranObserver
 {
@@ -13,14 +14,6 @@ class KasPembayaranObserver
      */
     public function saving(KasPembayaran $pembayaran): void
     {
-        // Update status otomatis berdasarkan jumlah_bayar
-        // if ($pembayaran->jumlah_bayar >= 2000) {
-        //     $pembayaran->status = StatusPembayaran::LUNAS;
-        // } elseif ($pembayaran->jumlah_bayar > 0 && $pembayaran->jumlah_bayar < 2000) {
-        //     $pembayaran->status = StatusPembayaran::KURANG;
-        // } else {
-        //     $pembayaran->status = StatusPembayaran::BELUM;
-        // }
     }
 
 
@@ -35,9 +28,22 @@ class KasPembayaranObserver
     /**
      * Handle the KasPembayaran "updated" event.
      */
-    public function updated(KasPembayaran $kasPembayaran): void
+ public function updated(KasPembayaran $kasPembayaran)
     {
-        //
+        // Cek apakah field 'terbayar' berubah
+        if ($kasPembayaran->isDirty('terbayar')) {
+
+            // Jika terbayar = true → buat pemasukan baru
+            if ($kasPembayaran->terbayar) {
+                Pemasukan::updateOrCreate(
+                    ['kas_pembayaran_id' => $kasPembayaran->id],
+                    ['nominal' => 1000] // nominal default mingguan
+                );
+            } else {
+                // Jika terbayar = false → hapus pemasukan
+                $kasPembayaran->pemasukan()->delete();
+            }
+        }
     }
 
     /**

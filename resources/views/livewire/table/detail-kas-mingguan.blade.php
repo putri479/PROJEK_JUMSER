@@ -5,7 +5,7 @@ use App\Enums\StatusPembayaran;
 <div>
 
     <h3 class="mb-3">
-        DETAIL PEMBAYARAN MINGGU {{ $this->dataMingguan->minggu_ke }}
+        DETAIL PEMBAYARAN MINGGU {{ $minggu_ke }}
     </h3>
 
     <div class="modal fade" id="modal-edit" tabindex="-1" wire:ignore.self>
@@ -40,10 +40,9 @@ use App\Enums\StatusPembayaran;
 
     <div class="card mb-3">
         <div class="card-body">
-            <div><strong>Kelas:</strong> {{ $this->dataMingguan->kelas->nama_kelas ?? '-' }}</div>
-            <div><strong>Bulan:</strong> {{ $this->dataMingguan->bulan }} / {{ $this->dataMingguan->tahun }}</div>
-            <div><strong>Tanggal Jumat:</strong> {{ $this->dataMingguan->tanggal_jumat }}</div>
-            <div><strong>Nominal Mingguan:</strong> Rp {{ number_format($this->dataMingguan->nominal, 0, ',', '.') }}</div>
+            <div><strong>Kelas:</strong> {{ $user->kelas->nama_kelas ?? '-' }}</div>
+            <div><strong>Bulan:</strong> {{ $bulan }} / {{ $tahun }}</div>
+            <div><strong>Nominal Mingguan:</strong> Rp 1.000</div>
         </div>
     </div>
 
@@ -51,7 +50,7 @@ use App\Enums\StatusPembayaran;
 
 <div class="card-header">
 
-    <div class="row g-2">
+    <div class="row">
 
         <!-- Filter Bulan -->
         <div class="col-md-3">
@@ -88,8 +87,7 @@ use App\Enums\StatusPembayaran;
         <div class="col-md-3">
             <label class="form-label mb-0">Minggu Ke</label>
             <select class="form-control" wire:model.live="minggu_ke">
-                <option value="">-- Semua Minggu --</option>
-                @for ($i = 1; $i <= 5; $i++)
+                @for ($i = 1; $i <= 4; $i++)
                     <option value="{{ $i }}">Minggu {{ $i }}</option>
                 @endfor
             </select>
@@ -99,15 +97,13 @@ use App\Enums\StatusPembayaran;
 
 </div>
 
-        <div class="card-body p-0">
+        <div class="card-body">
             <table class="table table-bordered m-0">
                 <thead class="table-light">
                     <tr>
                         <th style="width: 50px">No</th>
                         <th>Nama Siswa</th>
                         <th>Dibayar</th>
-                        <th>Jumlah</th>
-                        <th class="text-end">Aksi</th>
                     </tr>
                 </thead>
 
@@ -117,21 +113,21 @@ use App\Enums\StatusPembayaran;
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->siswa->nama_siswa }}</td>
 
-                            <td>
-<div class="form-check form-check-flat form-check-primary">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input"><i class="input-helper"></i></label>
-                      </div>
-                            </td>
-
-                            <td>Rp {{ number_format($item->jumlah_bayar, 0, ',', '.') }}</td>
-
-<td class="text-end">
-    <button type="button" class="btn btn-primary"
-        wire:click="edit({{ $item->id }})">
-        <i class="bi bi-cash-stack"></i> Edit Pembayaran
-    </button>
+<td>
+    <div class="form-check form-check-flat form-check-primary">
+        <label class="form-check-label">
+            <input
+                type="checkbox"
+                class="form-check-input"
+                wire:click="toggleBayar({{ $item->id }})"
+                {{ $item->terbayar ? 'checked' : '' }}
+            >
+            <i class="input-helper"></i>
+        </label>
+    </div>
 </td>
+
+
                         </tr>
                     @empty
                         <tr>
@@ -144,6 +140,15 @@ use App\Enums\StatusPembayaran;
 
             </table>
         </div>
+
+            <div class="card-footer">
+
+@if ($this->pembayaranList instanceof \Illuminate\Pagination\LengthAwarePaginator && $this->pembayaranList->count())
+    {{ $this->pembayaranList->links() }}
+@endif
+
+
+            </div>
 
     </div>
 

@@ -5,16 +5,19 @@ namespace App\Livewire\Table;
 use App\Models\KasPembayaran;
 use App\Models\KasMingguan;
 use App\Models\Siswa;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Title;
+use Livewire\WithPagination;
 
 class DetailKasMingguan extends Component
 {
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public ?int $jumlah_bayar;
 
@@ -22,22 +25,38 @@ class DetailKasMingguan extends Component
 
     public ?KasPembayaran $selectedKasPembayaran = null;
 
+    public ?User $user;
+
     //filter
     public string $tahun = '2025';
     public string $bulan;
     public string $minggu_ke;
 
-    public function mount($mingguanId)
+    public function mount()
     {
-        $this->mingguanId = $mingguanId;
+        $this->user = auth()->user();
+        $this->user->load('kelas');
+
+        $this->mingguanId = 1;
 
         // Ambil data dari database
-        $mingguan = KasMingguan::query()->findOrFail($mingguanId);
+        $mingguan = KasMingguan::query()->findOrFail(1);
 
         // Isi otomatis
         $this->tahun = $mingguan->tahun ?? date('Y');
         $this->bulan = $mingguan->bulan ?? date('m');
         $this->minggu_ke = $mingguan->minggu_ke ?? 1;
+    }
+
+    public function toggleBayar($id)
+    {
+        $pembayaran = KasPembayaran::findOrFail($id);
+
+        // Toggle true/false
+        $pembayaran->terbayar = !$pembayaran->terbayar;
+        $pembayaran->save();
+
+        $this->notifySuccess('Status pembayaran diperbarui');
     }
 
     #[Computed]
@@ -49,16 +68,29 @@ class DetailKasMingguan extends Component
     #[Computed]
     public function pembayaranList()
     {
-        $kelasId = auth()->user()->kelas->id;
+        $kelasId = $this->user->kelas->id;
+
+        // Cari ID kas_mingguan yang sesuai filter
+        $mingguan = KasMingguan::query()
+            ->where('tahun', $this->tahun)
+            ->where('bulan', $this->bulan)
+            ->when($this->minggu_ke, fn($q) =>
+                $q->where('minggu_ke', $this->minggu_ke)
+            )
+            ->first();
+
+        if (!$mingguan) {
+            return collect(); // Jika tidak ada data, return collection kosong
+        }
 
         return KasPembayaran::query()
             ->with('siswa')
-            ->where('kas_mingguan_id', $this->mingguanId)
+            ->where('kas_mingguan_id', $mingguan->id)
             ->whereHas('siswa', fn($q) =>
                 $q->where('kelas_id', $kelasId)
             )
             ->orderBy('siswa_id')
-            ->get();
+            ->paginate(10);
     }
 
 

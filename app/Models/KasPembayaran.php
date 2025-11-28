@@ -33,4 +33,11 @@ class KasPembayaran extends Model
     {
         return $this->belongsTo(KasMingguan::class, 'kas_mingguan_id');
     }
+
+
+    public function pemasukan()
+    {
+        return $this->hasOne(Pemasukan::class, 'kas_pembayaran_id');
+    }
+
 }
