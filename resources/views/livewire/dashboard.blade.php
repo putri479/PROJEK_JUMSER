@@ -66,5 +66,47 @@
         </div>
     </div>
 
+@elseif($role === Role::PEMBINA_OSIS)
+
+<div class="col-12">
+    <h5 class="mb-3">Galeri Foto Sekolah</h5>
+</div>
+
+<!-- Foto 1 -->
+<div class="col-6 col-lg-3 col-md-4">
+    <div class="card">
+        <img src="{{ asset('images/sekolah/foto1.jpeg') }}"
+             class="card-img-top"
+             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
+    </div>
+</div>
+
+<!-- Foto 2 -->
+<div class="col-6 col-lg-3 col-md-4">
+    <div class="card">
+        <img src="{{ asset('images/sekolah/foto2.jpeg') }}"
+             class="card-img-top"
+             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
+    </div>
+</div>
+
+<!-- Foto 3 -->
+<div class="col-6 col-lg-3 col-md-4">
+    <div class="card">
+        <img src="{{ asset('images/sekolah/foto3.jpeg') }}"
+             class="card-img-top"
+             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
+    </div>
+</div>
+
+<!-- Foto 4 -->
+<div class="col-6 col-lg-3 col-md-4">
+    <div class="card">
+        <img src="{{ asset('images/sekolah/foto4.jpeg') }}"
+             class="card-img-top"
+             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
+    </div>
+</div>
+
     @endif
 </div>
