@@ -109,7 +109,7 @@
     </div>
 </div>
 <div class="alert alert-warning" role="alert">
-SMK NEGERI 10 KOLAKA Adalah sekolah menengah yang terletak di Kabupaten Kolaka, Kecamatan Tanggetada yang dimana sekolah ini membuat kegiatan Jumat seribu (JUMSER) yang dimana pada setiap hari Jumat siswa di SMK negeri 10 Kolaka mengumpulkan uang seribu rupiah yang dimana tujuannya untuk menumbuhkan semangat anak-anak serta belajar untuk bersedekah
+SMK NEGERI 10 KOLAKA Adalah sekolah menengah yang terletak di Kabupaten Kolaka, Kecamatan Tanggetada yang dimana sekolah ini membuat kegiatan Jumat seribu (JUMSER) yang dimana yaitu pada setiap hari Jumat siswa di SMK negeri 10 Kolaka mengumpulkan uang seribu rupiah yang dimana tujuannya untuk menumbuhkan semangat anak-anak serta belajar untuk bersedekah
 </div>
 
 
